@@ -7,10 +7,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- * RoleSelectionPage — visible role selection screen
- * for first-time users without a saved role.
- */
+ // RoleSelectionPage — visible role selection screen
+
+
+ 
+ //for first-time users without a saved role.
+
 public class RoleSelectionPage {
 
     private final DatabaseHelper db;
