@@ -11,10 +11,9 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-/**
- * Replies window for any selected question.
- * Allows posting, refreshing, deleting (with privileges), and marking accepted.
- */
+// Replies window for any selected question.
+ // allows our users  posting, refreshing, deleting (with privileges), and marking accepted.
+ 
 public class AnswerPage {
 
     private final DatabaseHelper db;
@@ -85,10 +84,10 @@ public class AnswerPage {
             }
         });
 
-        // === Refresh ===
+        // our refresh batch button option
         refreshBtn.setOnAction(e -> loadReplies.run());
 
-        // === Delete Selected ===
+        // deleting the selected option
         deleteBtn.setOnAction(e -> {
             int index = replyList.getSelectionModel().getSelectedIndex();
             if (index == -1) {
@@ -115,7 +114,7 @@ public class AnswerPage {
             }
         });
 
-        // === Accept Answer ===
+        //accept
         acceptBtn.setOnAction(e -> {
             int index = replyList.getSelectionModel().getSelectedIndex();
             if (index == -1) {
@@ -135,7 +134,7 @@ public class AnswerPage {
             }
         });
 
-        // Layout
+        // our layout
         HBox buttons = new HBox(10, postBtn, refreshBtn, deleteBtn, acceptBtn);
         root.getChildren().addAll(lblTitle, new Label("Replies:"), replyList, buttons, replyField, status);
 
