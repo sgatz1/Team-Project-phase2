@@ -18,16 +18,16 @@ public class DatabaseHelper {
             // load h2 database driver
             Class.forName("org.h2.Driver");
 
-            //  uses absolute Windows path so it never makes duplicates
-            //  writes and reads from: C:\Users\aibrahim\cse360db.mv.db (local user who programmed it)
-            // edit the line below, ensure that the path for your h2 is what is here.
-            String dbPath = "C:\\Users\\aibrahim\\cse360db";
+            // use a local, cross-platform relative path so it works anywhere
+            // this will create a "database" folder inside your project directory automatically
+            String dbPath = "./database/cse360db";
+
             conn = DriverManager.getConnection(
                     "jdbc:h2:file:" + dbPath + ";IFEXISTS=FALSE;AUTO_SERVER=TRUE;LOCK_TIMEOUT=10000",
                     "sa",
                     "Password"
             );
-            System.out.println(" Using database at: " + dbPath);
+            System.out.println(" Using database at: " + new java.io.File(dbPath).getAbsolutePath());
 
             // ensure auto commit enabled for safety
             conn.setAutoCommit(true);
@@ -449,6 +449,7 @@ public class DatabaseHelper {
             return false;
         }
     }
+
     // Delete an answer by AID
     public boolean deleteAnswer(int aid) {
         try (PreparedStatement ps = conn.prepareStatement("DELETE FROM ANSWERS WHERE AID = ?")) {
