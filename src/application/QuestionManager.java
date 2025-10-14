@@ -4,10 +4,9 @@ import databasePart1.DatabaseHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Database-backed QuestionManager.
- * Handles add/search/update/delete using the persistent H2 database via DatabaseHelper.
- */
+// this is our database backend manager
+ // Handles add/search/update/delete using the persistent H2 db.
+
 public class QuestionManager {
 
     private DatabaseHelper db;
@@ -19,13 +18,13 @@ public class QuestionManager {
         this.username = username;
     }
 
-    // CREATE
+    // creating a quesiton
     public void addQuestion(Question q) {
         db.addQuestion(username, q.getTitle(), q.getBody());
         System.out.println("Sucessfully saved question to DB: " + q.getTitle());
     }
 
-    // READ (all questions)
+    // reading our questions
     public ArrayList<Question> getAllQuestions() {
         ArrayList<Question> list = new ArrayList<>();
         List<String[]> rows = db.getAllQuestions();
@@ -36,7 +35,7 @@ public class QuestionManager {
         return list;
     }
 
-    // SEARCH
+    // searching
     public ArrayList<Question> search(String keyword) {
         ArrayList<Question> list = new ArrayList<>();
         List<String[]> rows = db.searchQuestions(keyword);
@@ -49,7 +48,7 @@ public class QuestionManager {
 
     // UPDATE
     public void updateQuestionTitle(String oldTitle, String newTitle) {
-        // For simplicity, find the question and update it by title match
+        //for basics we tried to keep the search engine consistent with match make searches.
         List<String[]> all = db.getAllQuestions();
         for (String[] q : all) {
             if (q[2].equalsIgnoreCase(oldTitle)) {
@@ -72,7 +71,7 @@ public class QuestionManager {
         }
     }
 
-    // ACCEPT ANSWER (future use and to answer )
+    // accpeting answer or state
     public void markAnswerAccepted(Question question, Answer answer) {
         for (Answer a : question.getAnswers()) {
             a.setAccepted(false);
