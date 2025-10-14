@@ -10,12 +10,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
-/**
- * Student/Staff/Admin Q&A Portal
- * - Supports asking, editing, deleting, searching, and viewing replies
- * - Deletion/editing restricted by role-based privileges
- * - Fully persistent via DatabaseHelper (H2 database)
- */
+// student portal and admin portal
+
+
+ // asking, editing, replying and so on..
+
+
+ // deletion and editing procedures are maintained here
+
 public class QuestionPage {
 
     private final QuestionManager manager;
@@ -53,16 +55,16 @@ public class QuestionPage {
         Button showBtn = new Button("Show All");
         Button viewRepliesBtn = new Button("View Replies");
 
-        // --- Search Controls ---
+        // search criteria control
         TextField searchField = new TextField();
         searchField.setPromptText("Search keyword");
         Button searchBtn = new Button("Search");
 
-        // --- List View ---
+        // -ojur list view
         ListView<Question> questionList = new ListView<>();
         questionList.setPrefHeight(250);
 
-        // === Add Question ===
+        // adding questions
         addBtn.setOnAction(e -> {
             String title = titleField.getText().trim();
             String body = bodyArea.getText().trim();
@@ -80,7 +82,7 @@ public class QuestionPage {
             refreshList(questionList);
         });
 
-        // === Edit Selected ===
+        //editing questions that were submitted
         editBtn.setOnAction(e -> {
             Question selected = questionList.getSelectionModel().getSelectedItem();
             if (selected == null || selected.getTitle().startsWith("No ")) {
@@ -88,7 +90,7 @@ public class QuestionPage {
                 return;
             }
 
-            //  Only author or staff/admin/instructor can edit
+            //  author, admin, staff instruction call procedures
             if (!privileges.canModifyQuestion(selected.getAuthor())) {
                 showAlert("Permission Denied", "You can only edit your own question or be Staff/Admin/Instructor.");
                 return;
@@ -105,7 +107,7 @@ public class QuestionPage {
             });
         });
 
-        // === Delete Selected ===
+        //deleting hte selected 
         deleteBtn.setOnAction(e -> {
             Question selected = questionList.getSelectionModel().getSelectedItem();
             if (selected == null || selected.getTitle().startsWith("No ")) {
@@ -113,7 +115,7 @@ public class QuestionPage {
                 return;
             }
 
-            //  Only author or staff/admin/instructor can delete
+            //   author or staff/admin/instructor can delete
             if (!privileges.canModifyQuestion(selected.getAuthor())) {
                 showAlert("Permission Denied", "You can only delete your own question or be Staff/Admin/Instructor.");
                 return;
